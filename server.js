@@ -1,4 +1,12 @@
 require("dotenv").config();
+const validateEnv = require("./config/envValidator");
+const connectDB = require("./config/db");
+
+// Validate environment variables before anything else
+validateEnv();
+
+// Connect to MongoDB
+connectDB();
 
 const express = require("express");
 const cors = require("cors");
@@ -26,11 +34,35 @@ app.use("/api", apiLimiter);
 // Routes
 const testRoutes = require("./routes/testRoutes");
 app.use("/api/test", testRoutes);
-const videoRoutes = require("./routes/videoRoutes");
-app.use("/api/videos", videoRoutes);
-// Test route
+
 const authRoutes = require("./routes/authRoutes");
 app.use("/api/auth", authRoutes);
+
+const courseRoutes = require("./routes/courseRoutes");
+app.use("/api/courses", courseRoutes);
+
+const moduleRoutes = require("./routes/moduleRoutes");
+app.use("/api/modules", moduleRoutes);
+
+const videoRoutes = require("./routes/videoRoutes");
+app.use("/api/videos", videoRoutes);
+
+const noteRoutes = require("./routes/noteRoutes");
+app.use("/api/notes", noteRoutes);
+
+const batchRoutes = require("./routes/batchRoutes");
+app.use("/api/batches", batchRoutes);
+
+const liveClassRoutes = require("./routes/liveClassRoutes");
+app.use("/api/classes", liveClassRoutes);
+
+const attendanceRoutes = require("./routes/attendanceRoutes");
+app.use("/api/attendance", attendanceRoutes);
+
+const progressRoutes = require("./routes/progressRoutes");
+app.use("/api/progress", progressRoutes);
+
+// Test route
 app.get("/", (req, res) => {
   res.json({
     success: true,

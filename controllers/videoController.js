@@ -1,38 +1,28 @@
-const Video = require("../models/Video");
+const Video = require("../models/video");
 
-// Add video (ADMIN ONLY)
 exports.addVideo = async (req, res) => {
-  try {
-    const { title, youtubeId } = req.body;
+    try {
+        const { title, youtubeId, courseId, moduleId, order } = req.body;
 
-    const video = await Video.create({
-      title,
-      youtubeId
-    });
+        if (!title || !youtubeId || !courseId || !moduleId || order === undefined) {
+            return res.status(400).json({ success: false, message: "Missing required fields" });
+        }
 
-    res.json({
-      success: true,
-      message: "Video added",
-      data: video
-    });
+        const video = await Video.create({
+            title,
+            youtubeId,
+            courseId,
+            moduleId,
+            order
+        });
 
-  } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
-  }
-};
+        res.status(201).json({
+            success: true,
+            message: "Video added successfully",
+            data: video
+        });
 
-// Get all videos (STUDENT)
-exports.getVideos = async (req, res) => {
-  try {
-    const videos = await Video.find();
-
-    res.json({
-      success: true,
-      message: "Videos retrieved successfully",
-      data: videos
-    });
-
-  } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
-  }
+    } catch (err) {
+        res.status(500).json({ success: false, message: err.message });
+    }
 };

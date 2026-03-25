@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ["admin", "student"],
+      enum: ["admin", "student", "teacher"],
       default: "student",
     },
     deviceId: {
@@ -31,6 +31,12 @@ const userSchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
     },
+    enrolledCourses: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Course",
+      }
+    ],
   },
   { timestamps: true }
 );
