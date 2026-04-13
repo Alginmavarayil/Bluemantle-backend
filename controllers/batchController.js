@@ -54,10 +54,31 @@ exports.assignTeacher = async (req, res) => {
             return res.status(400).json({ success: false, message: "Invalid teacher ID or user is not a teacher." });
         }
 
-        const batch = await Batch.findByIdAndUpdate(req.params.id, { teacherId }, { new: true });
+        const existingBatch = await Batch.findById(req.params.id);
+        if (!existingBatch) return res.status(404).json({ success: false, message: "Batch not found" });
+
+        if (existingBatch.teacherId) {
+            return res.status(400).json({ success: false, message: "Batch already has a teacher assigned" });
+        }
+
+        existingBatch.teacherId = teacherId;
+        await existingBatch.save();
+
+        res.json({ success: true, message: "Teacher assigned successfully", data: existingBatch });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+};
+
+exports.removeTeacher = async (req, res) => {
+    try {
+        const batch = await Batch.findById(req.params.id);
         if (!batch) return res.status(404).json({ success: false, message: "Batch not found" });
 
-        res.json({ success: true, message: "Teacher assigned successfully", data: batch });
+        batch.teacherId = null;
+        await batch.save();
+
+        res.json({ success: true, message: "Teacher removed successfully", data: batch });
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
     }

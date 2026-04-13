@@ -22,6 +22,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       enum: ["admin", "student", "teacher"],
       default: "student",
+      index: true,
     },
     deviceId: {
       type: String,

@@ -28,6 +28,10 @@ const liveClassSchema = new mongoose.Schema(
     },
     duration: {
       type: Number
+    },
+    reminderSent: {
+      type: Boolean,
+      default: false
     }
   },
   { timestamps: true }

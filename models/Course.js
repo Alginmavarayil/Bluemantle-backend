@@ -20,6 +20,11 @@ const courseSchema = new mongoose.Schema(
     duration: {
       type: String
     },
+    isActive: {
+      type: Boolean,
+      default: true,
+      index: true
+    },
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User"

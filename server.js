@@ -8,6 +8,10 @@ validateEnv();
 // Connect to MongoDB
 connectDB();
 
+// Initialize Cron Scheduler
+const initScheduler = require("./utils/scheduler");
+initScheduler();
+
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
@@ -38,6 +42,9 @@ app.use("/api/test", testRoutes);
 const authRoutes = require("./routes/authRoutes");
 app.use("/api/auth", authRoutes);
 
+const adminRoutes = require("./routes/adminRoutes");
+app.use("/api/admin", adminRoutes);
+
 const courseRoutes = require("./routes/courseRoutes");
 app.use("/api/courses", courseRoutes);
 
@@ -61,6 +68,12 @@ app.use("/api/attendance", attendanceRoutes);
 
 const progressRoutes = require("./routes/progressRoutes");
 app.use("/api/progress", progressRoutes);
+
+const notificationRoutes = require("./routes/notificationRoutes");
+app.use("/api/notifications", notificationRoutes);
+
+const dashboardRoutes = require("./routes/dashboardRoutes");
+app.use("/api/dashboard", dashboardRoutes);
 
 // Test route
 app.get("/", (req, res) => {

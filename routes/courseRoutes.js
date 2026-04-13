@@ -6,15 +6,21 @@ const {
     getCourses, 
     getCourseDetails, 
     getCourseVideos, 
-    getCourseNotes 
+    getCourseNotes,
+    updateCourse,
+    deleteCourse,
+    restoreCourse
 } = require("../controllers/courseController");
 
 const authMiddleware = require("../middleware/authMiddleware");
 const roleMiddleware = require("../middleware/roleMiddleware");
 const courseAccessMiddleware = require("../middleware/courseAccessMiddleware");
 
-// Admin create course
+// Admin routes
 router.post("/", authMiddleware, roleMiddleware("admin"), createCourse);
+router.put("/:id", authMiddleware, roleMiddleware("admin"), updateCourse);
+router.delete("/:id", authMiddleware, roleMiddleware("admin"), deleteCourse);
+router.post("/:id/restore", authMiddleware, roleMiddleware("admin"), restoreCourse);
 
 // Get all courses (authenticated)
 router.get("/", authMiddleware, getCourses);

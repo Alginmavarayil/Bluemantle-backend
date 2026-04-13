@@ -5,7 +5,8 @@ const {
     createBatch, 
     listBatches, 
     getBatchDetails, 
-    assignTeacher, 
+    assignTeacher,
+    removeTeacher,
     addStudents, 
     removeStudent 
 } = require("../controllers/batchController");
@@ -18,6 +19,7 @@ router.post("/", authMiddleware, roleMiddleware("admin"), createBatch);
 router.get("/", authMiddleware, roleMiddleware("admin"), listBatches);
 
 router.post("/:id/assign-teacher", authMiddleware, roleMiddleware("admin"), assignTeacher);
+router.post("/:id/remove-teacher", authMiddleware, roleMiddleware("admin"), removeTeacher);
 router.post("/:id/add-students", authMiddleware, roleMiddleware("admin"), addStudents);
 router.post("/:id/remove-student", authMiddleware, roleMiddleware("admin"), removeStudent);
 
