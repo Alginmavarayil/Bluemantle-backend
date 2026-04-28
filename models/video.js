@@ -23,6 +23,14 @@ const videoSchema = new mongoose.Schema(
     order: {
       type: Number,
       required: true
+    },
+    duration: {
+      type: String,
+      default: "0:00"
+    },
+    description: {
+      type: String,
+      default: ""
     }
   },
   { timestamps: true }

@@ -20,9 +20,20 @@ const userSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ["admin", "student", "teacher"],
+      enum: ["admin", "owner", "student", "teacher"],
       default: "student",
       index: true,
+    },
+    status: {
+      type: String,
+      enum: ["active", "suspended", "pending", "blocked"],
+      default: "active",
+      index: true,
+    },
+    batchId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Batch",
+      default: null,
     },
     deviceId: {
       type: String,

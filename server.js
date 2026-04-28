@@ -75,6 +75,9 @@ app.use("/api/notifications", notificationRoutes);
 const dashboardRoutes = require("./routes/dashboardRoutes");
 app.use("/api/dashboard", dashboardRoutes);
 
+const institutionalRoutes = require("./routes/institutionalRoutes");
+app.use("/api/institutional", institutionalRoutes);
+
 // Test route
 app.get("/", (req, res) => {
   res.json({

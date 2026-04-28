@@ -29,6 +29,10 @@ const batchSchema = new mongoose.Schema(
       type: Number,
       default: 100
     },
+    isLive: {
+      type: Boolean,
+      default: false
+    },
     startDate: {
       type: Date
     },
